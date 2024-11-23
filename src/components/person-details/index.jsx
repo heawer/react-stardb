@@ -1,34 +1,63 @@
-import { Component } from "react";
+import { Component } from 'react';
 
-import "./index.css";
+import './index.css';
+import SwapiService from "../../services/swapi-service";
 
 export default class PersonDetails extends Component {
+  swapiService = new SwapiService();
+
+  state = {
+    person: null
+  };
+
+  componentDidMount() {
+    this.updatePerson();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.personId !== prevProps.personId) this.updatePerson();
+  }
+
+  updatePerson() {
+    const { personId } = this.props;
+    if (!personId) return;
+
+    this.swapiService
+      .getPerson(personId)
+      .then((person) => {
+        this.setState({ person });
+      });
+  }
+
   render() {
+    if (!this.state.person) return <span>Select a person from a list</span>;
+
+    const person = this.state.person;
+
     return (
       <div className="person-details card">
-        <img
-          className="person-image"
-          src="https://starwars-visualguide.com/assets/img/characters/3.jpg"
-        />
+        <img className="person-image"
+          src={`https://starwars-visualguide.com/assets/img/characters/${person.id}.jpg`}
+          alt="character"/>
 
         <div className="card-body">
-          <h4>R2-D2</h4>
+          <h4>{person.name} {this.props.personId}</h4>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
               <span className="term">Gender</span>
-              <span>male</span>
+              <span>{person.gender}</span>
             </li>
             <li className="list-group-item">
               <span className="term">Birth Year</span>
-              <span>43</span>
+              <span>{person.birthYear}</span>
             </li>
             <li className="list-group-item">
               <span className="term">Eye Color</span>
-              <span>red</span>
+              <span>{person.eyeColor}</span>
             </li>
           </ul>
         </div>
       </div>
-    );
+    )
   }
 }
