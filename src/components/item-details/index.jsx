@@ -24,12 +24,18 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) this.updateItem();
+    if (this.props.itemId !== prevProps.itemId ||
+      this.props.getData !== prevProps.getData ||
+      this.props.getImageUrl !== prevProps.getImageUrl) {
+      this.updateItem();
+    }
   }
 
   updateItem() {
     const { itemId, getData, getImageUrl } = this.props;
-    if (!itemId) return;
+    if (!itemId) {
+      return;
+    }
 
     getData(itemId)
       .then((item) => {
@@ -46,15 +52,12 @@ export default class ItemDetails extends Component {
 
     return (
       <div className="item-details card">
-        <img
-          className="item-image"
+        <img className="item-image"
           src={image}
-          alt="item"
-        />
+          alt="item"/>
 
         <div className="card-body">
           <h4>{item.name}</h4>
-
           <ul className="list-group list-group-flush">
             {
               React.Children.map(this.props.children, (child) => {
@@ -62,7 +65,6 @@ export default class ItemDetails extends Component {
               })
             }
           </ul>
-
           <ErrorButton />
         </div>
       </div>
