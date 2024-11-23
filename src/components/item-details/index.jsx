@@ -48,7 +48,11 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item, image } = this.state;
-    if (!item) return <span>Select a item from a list</span>;
+    if (!item) {
+      return <span>Select a item from a list</span>;
+    }
+
+    const { name } = item;
 
     return (
       <div className="item-details card">
@@ -57,7 +61,7 @@ export default class ItemDetails extends Component {
           alt="item"/>
 
         <div className="card-body">
-          <h4>{item.name}</h4>
+          <h4>{name}</h4>
           <ul className="list-group list-group-flush">
             {
               React.Children.map(this.props.children, (child) => {
