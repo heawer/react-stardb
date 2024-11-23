@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import ErrorButton from '../error-button';
-import SwapiService from '../../services/api';
 
 import './index.css';
 
@@ -15,8 +14,6 @@ export const Record = ({ item, field, label }) => {
 };
 
 export default class ItemDetails extends Component {
-  swapiService = new SwapiService();
-
   state = {
     item: null,
     image: null
@@ -27,16 +24,12 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
-      this.updateItem();
-    }
+    if (this.props.itemId !== prevProps.itemId) this.updateItem();
   }
 
   updateItem() {
     const { itemId, getData, getImageUrl } = this.props;
-    if (!itemId) {
-      return;
-    }
+    if (!itemId) return;
 
     getData(itemId)
       .then((item) => {
@@ -49,17 +42,19 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item, image } = this.state;
-
     if (!item) return <span>Select a item from a list</span>;
-    
+
     return (
       <div className="item-details card">
-        <img className="item-image"
+        <img
+          className="item-image"
           src={image}
-          alt="item"/>
+          alt="item"
+        />
 
         <div className="card-body">
           <h4>{item.name}</h4>
+
           <ul className="list-group list-group-flush">
             {
               React.Children.map(this.props.children, (child) => {
@@ -67,6 +62,7 @@ export default class ItemDetails extends Component {
               })
             }
           </ul>
+
           <ErrorButton />
         </div>
       </div>
