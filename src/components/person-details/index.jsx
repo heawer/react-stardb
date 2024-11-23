@@ -1,7 +1,8 @@
 import { Component } from 'react';
 
 import './index.css';
-import SwapiService from "../../services/swapi-service";
+import SwapiService from "../../services/api";
+import ErrorButton from "../error-button";
 
 export default class PersonDetails extends Component {
   swapiService = new SwapiService();
@@ -20,6 +21,7 @@ export default class PersonDetails extends Component {
 
   updatePerson() {
     const { personId } = this.props;
+
     if (!personId) return;
 
     this.swapiService
@@ -56,6 +58,7 @@ export default class PersonDetails extends Component {
               <span>{person.eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
       </div>
     )
