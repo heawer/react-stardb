@@ -56,20 +56,23 @@ export default class ItemDetails extends Component {
 
     return (
       <div className="item-details card">
-        <img className="item-image"
-          src={image}
-          alt="item"/>
-
-        <div className="card-body">
-          <h4>{name}</h4>
-          <ul className="list-group list-group-flush">
-            {
-              React.Children.map(this.props.children, (child) => {
-                return React.cloneElement(child, { item });
-              })
-            }
-          </ul>
-          <ErrorButton />
+        <div className="row g-0">
+          <div className="col-md-4">
+            <img className="img-fluid rounded-start" src={image} alt="item" />
+          </div>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h4 className="card-title">{name}</h4>
+              <ul className="list-group list-group-flush">
+                {
+                  React.Children.map(this.props.children, (child) => {
+                    return React.cloneElement(child, { item });
+                  })
+                }
+              </ul>
+              <ErrorButton className="btn btn-danger mt-3" />
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -35,20 +35,23 @@ export default class App extends Component {
       <ErrorBoundry>
         <SwapiServiceProvider value={this.state.swapiService} >
           <Router>
-            <div className="stardb-app">
+            <div className="p-3">
               <Header onServiceChange={this.onServiceChange} />
-              <RandomPlanet />
 
-              <Routes>
-                <Route path="/people/" element={<PeoplePage />} />
-                <Route path="/planets" element={<PlanetsPage />} />
-                <Route path="/starships" exact element={<StarshipsPage />} />
-                <Route path="/starships/:id"
-                      render={({ match }) => {
-                        const { id } = match.params;
-                        return <StarshipDetails itemId={id} />
-                      }}/>
-            </Routes>
+              <div className="container py-4">
+                <RandomPlanet />
+
+                <Routes>
+                  <Route path="/people/" element={<PeoplePage />} />
+                  <Route path="/planets" element={<PlanetsPage />} />
+                  <Route path="/starships" exact element={<StarshipsPage />} />
+                  <Route path="/starships/:id"
+                        render={({ match }) => {
+                          const { id } = match.params;
+                          return <StarshipDetails itemId={id} />
+                        }}/>
+                </Routes>
+              </div>
             </div>
           </Router>
         </SwapiServiceProvider>

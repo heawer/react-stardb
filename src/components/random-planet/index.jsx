@@ -66,7 +66,7 @@ export default class RandomPlanet extends Component {
     const content = hasData ? <PlanetView planet={planet}/> : null;
 
     return (
-      <div className="random-planet jumbotron rounded">
+      <div className="jumbotron rounded">
         {errorMessage}
         {spinner}
         {content}
@@ -83,25 +83,34 @@ const PlanetView = ({ planet }) => {
 
   return (
     <React.Fragment>
-      <img className="planet-image"
-           src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-           alt="planet" />
-      <div>
-        <h4>{name}</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <span className="term">Population</span>
-            <span>{population}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Rotation Period</span>
-            <span>{rotationPeriod}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="term">Diameter</span>
-            <span>{diameter}</span>
-          </li>
-        </ul>
+      <div className="random-planet card bg-dark text-white">
+        <div className="row g-0">
+          <h2>Random Planet</h2>
+
+          <div className="col-md-4">
+            <img
+              className="img-fluid rounded-start"
+              src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+              alt="planet"
+            />
+          </div>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h4 className="card-title">{name}</h4>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item bg-dark text-white">
+                  <span className="term">Population:</span> {population}
+                </li>
+                <li className="list-group-item bg-dark text-white">
+                  <span className="term">Rotation Period:</span> {rotationPeriod}
+                </li>
+                <li className="list-group-item bg-dark text-white">
+                  <span className="term">Diameter:</span> {diameter}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );
